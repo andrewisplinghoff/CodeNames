@@ -17,7 +17,7 @@ from config import config
 dry_run = False
 
 
-def fetch(word, min_size=5e6):
+def fetch(word, min_size=int(5e6)):
 
     # Use a reproducible but different "random" shuffle for each word.
     random.seed(word)

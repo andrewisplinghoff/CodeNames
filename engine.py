@@ -162,7 +162,7 @@ class GameEngine(object):
                     best_score.append(score * bonus_factor)
                     saved_clues.append((clue, words))
         num_clues = len(saved_clues)
-        order = sorted(xrange(num_clues), key=lambda k: best_score[k], reverse=True)
+        order = sorted(range(num_clues), key=lambda k: best_score[k], reverse=True)
 
         if verbose:
             self.print_board(spymaster=True)
@@ -293,7 +293,7 @@ def say(message):
 
 def ask(message):
     try:
-        return raw_input(message)
+        return input(message)
     except KeyboardInterrupt:
         say('\nBye.')
         sys.exit(0)
