@@ -46,7 +46,7 @@ class GameEngine(object):
 
         self.size = size
 
-        # Shuffle the wordlist.
+        # Shuffle the word list.
         shuffle = self.generator.choice(
             len(self.words), size * size, replace=False)
         self.board = self.words[shuffle]
@@ -227,7 +227,7 @@ class GameEngine(object):
             self.visible[loc] = False
 
             if guess == self.assassin_word:
-                say('{0} You guessed the assasin - game over!'.format(self.player_label))
+                say('{0} You guessed the assassin - game over!'.format(self.player_label))
                 return False
 
             if guess in self.player_words:

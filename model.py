@@ -24,7 +24,7 @@ class WordEmbedding(object):
         # Reduce the memory footprint since we will not be training.
         self.model.init_sims(replace=True)
 
-        # Initialize a wordnet lemmatizer for stemming.
+        # Initialize a Wordnet lemmatizer for stemming.
         self.lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
 
 
@@ -32,7 +32,7 @@ class WordEmbedding(object):
         """Return the stem of word.
         """
         # Hardcode some stemming rules for the default CodeName words
-        # that the wordnet lemmatizer doesn't know about.
+        # that the Wordnet lemmatizer doesn't know about.
         if word in ('pass', 'passing', 'passed',):
             return 'pass'
         if word in ('microscope', 'microscopy'):
@@ -173,7 +173,7 @@ class WordEmbedding(object):
                 cosine = self.model.similarity(words[i1], words[i2])
                 distance[i1, i2] = distance[i2, i1] = np.arccos(cosine)
 
-        # Initailize cluster finder.
+        # Initialize cluster finder.
         db = sklearn.cluster.DBSCAN(
             eps=min_sep, min_samples=1, metric='precomputed', n_jobs=1)
         db.fit(distance)

@@ -40,7 +40,7 @@ def main():
             # Initialize frequency counters.
             total_freq[freq_key] = cross_freq[freq_key] = 0
             corpus_stats[freq_key] = (0, 0)
-    print('Wordlist contains {0} compound words:'.format(len(compound)))
+    print('Word list contains {0} compound words:'.format(len(compound)))
     print(compound.keys())
 
     for word in word_list:
@@ -74,7 +74,7 @@ def main():
                     # Replace ' ' with '_' in compound words.
                     for w in compound:
                         line = line.replace(w, compound[w])
-                    # Update wordlist frequencies.
+                    # Update word list frequencies.
                     for w in line.split():
                         num_words += 1
                         if w in total_freq:
@@ -88,13 +88,13 @@ def main():
         print(word, num_sentences, num_words)
         corpus_stats[freq_key] = (num_sentences, num_words)
 
-    # Save wordlist frequencies in decreasing order.
+    # Save word list frequencies in decreasing order.
     with open(args.output, 'w') as f_out:
         print('WORD         TOTFREQ    XFREQ    NSENT    NWORD', file=f_out)
         for w in sorted(total_freq, key=total_freq.get, reverse=True):
             print('{0:11s} {1:8d} {2:8d} {3:8d} {4:8d}'.format(
                 w, total_freq[w], cross_freq[w], *corpus_stats[w]), file=f_out)
-    print('Saved wordlist frequencies to {0}'.format(args.output))
+    print('Saved word list frequencies to {0}'.format(args.output))
 
 
 if __name__ == '__main__':

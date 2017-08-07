@@ -22,7 +22,7 @@ def main():
     parser.add_argument('--dimension', type=int, default=300,
                         help='Dimension of word vectors to learn.')
     parser.add_argument('--min-count', type=int, default=150,
-                        help='Ignore words with fewer occurences.')
+                        help='Ignore words with fewer occurrences.')
     parser.add_argument('--max-distance', type=int, default=10,
                         help='Max distance between words within a sentence')
     parser.add_argument('--workers', type=int, default=4,
@@ -44,36 +44,36 @@ def main():
     if os.path.exists(corpus_name):
         logger.info('Using corpus {0}'.format(corpus_name))
     else:
-        # Read the wordlist into memory.
+        # Read the word list into memory.
         with open(config.word_list, 'r') as f:
-            wordlist = [w.strip().capitalize() for w in f]
+            word_list = [w.strip().capitalize() for w in f]
         logger.info('Read {0} words from {1}.'
-                    .format(len(wordlist), config.word_list))
+                    .format(len(word_list), config.word_list))
 
         # Open the output corpus file for this pass.
         f_out = gzip.open(corpus_name, 'wb')
 
-        # Perform a reproducible random shuffle of the wordlist.
+        # Perform a reproducible random shuffle of the word list.
         logger.info('Shuffling the corpus for pass {0} into {1}...'
                     .format(args.npass, corpus_name))
         random.seed(args.npass)
-        random.shuffle(wordlist)
+        random.shuffle(word_list)
 
-        # Split the wordlist into random pairs.
-        for i in range(0, len(wordlist), 2):
+        # Split the word list into random pairs.
+        for i in range(0, len(word_list), 2):
             sentences = []
             # Read content for the first word of this pair into memory.
             in_name = os.path.join(
                 config.corpus_directory,
-                config.template['preprocess'].format(wordlist[i]))
+                config.template['preprocess'].format(word_list[i]))
             with gzip.open(in_name, 'rb') as f_in:
                 for line in f_in:
                     sentences.append(line)
             # The last "pair" might be a single.
-            if i < len(wordlist) - 1:
+            if i < len(word_list) - 1:
                 in_name = os.path.join(
                     config.corpus_directory,
-                    config.template['preprocess'].format(wordlist[i+1]))
+                    config.template['preprocess'].format(word_list[i+1]))
                 # Read content for the second word of this pair into memory.
                 with gzip.open(in_name, 'rb') as f_in:
                     for line in f_in:
@@ -88,7 +88,7 @@ def main():
                 f_out.write(sentences[j])
 
             logger.info('Added {0} sentences for ({1}, {2}).'.format(
-                len(sentences), wordlist[i], wordlist[i+1]))
+                len(sentences), word_list[i], word_list[i+1]))
 
         f_out.close()
 

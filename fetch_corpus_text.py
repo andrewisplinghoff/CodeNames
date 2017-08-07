@@ -95,7 +95,7 @@ def main():
     args = parser.parse_args()
     dry_run = args.dry_run
 
-    # Read the word list into memory and format using wikimedia conventions.
+    # Read the word list into memory and format using Wikimedia conventions.
     # https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(capitalization)
     with open(config.word_list, 'r') as f:
         words = [w.strip().capitalize() for w in f]

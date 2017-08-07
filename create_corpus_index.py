@@ -10,7 +10,7 @@ from functools import partial
 
 from config import config
 
-# Maximum number of wikipedia articles to index per word. Can be
+# Maximum number of Wikipedia articles to index per word. Can be
 # overridden using the --max-size command-line argument.
 max_index_size = 10000
 
@@ -53,7 +53,7 @@ def main():
 
     max_index_size = args.index_size
 
-    # Read the word list into memory and format using wikimedia conventions.
+    # Read the word list into memory and format using Wikimedia conventions.
     # https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(capitalization)
     with open(config.word_list, 'r') as f:
         words = [w.strip().capitalize() for w in f]
@@ -62,7 +62,7 @@ def main():
     if not os.path.isdir(config.corpus_directory):
         os.mkdir(config.corpus_directory)
 
-    # Use the english wikipedia with no user config and ignore warnings.
+    # Use the english Wikipedia with no user config and ignore warnings.
     os.environ['PYWIKIBOT2_NO_USER_CONFIG'] = '2'
     import pywikibot
     site = pywikibot.Site('en', 'wikipedia')
