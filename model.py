@@ -10,7 +10,6 @@ import sklearn.cluster
 
 
 class WordEmbedding(object):
-
     def __init__(self, filename):
         # Import gensim here so we can mute a UserWarning about the Pattern
         # library not being installed.
@@ -26,7 +25,6 @@ class WordEmbedding(object):
 
         # Initialize a Wordnet lemmatizer for stemming.
         self.lemmatizer = nltk.stem.wordnet.WordNetLemmatizer()
-
 
     def get_stem(self, word):
         """Return the stem of word.
@@ -45,7 +43,6 @@ class WordEmbedding(object):
         if word in ('alp', 'alps', 'alpine', 'alpinist'):
             return 'alp'
         return self.lemmatizer.lemmatize(word).encode('ascii', 'ignore')
-
 
     def get_clue(self, clue_words, pos_words, neg_words, veto_words,
                  veto_margin=0.2, num_search=100, verbose=0):
@@ -144,22 +141,20 @@ class WordEmbedding(object):
 
         return best_clue, max_min_cosine
 
-
     def get_clusters_kmeans(self, words):
         """Use the KMeans algorithm to find word clusters.
         """
         words = np.asarray(words)
         num_words = len(words)
-        X = np.empty((num_words, self.model.vector_size))
+        data = np.empty((num_words, self.model.vector_size))
         for i, word in enumerate(words):
-            X[i] = self.model.syn0norm[self.model.vocab[word].index]
+            data[i] = self.model.syn0norm[self.model.vocab[word].index]
 
         for num_clusters in range(1, num_words):
-            kmeans = sklearn.cluster.KMeans(num_clusters).fit(X)
+            kmeans = sklearn.cluster.KMeans(num_clusters).fit(data)
             for label in set(kmeans.labels_):
                 members = words[kmeans.labels_ == label]
                 print('{0},{1}: {2}'.format(num_clusters, label, members))
-
 
     def get_clusters_dbscan(self, words, min_sep=1.25):
         """Use the DBSCAN algorithm to find word clusters.

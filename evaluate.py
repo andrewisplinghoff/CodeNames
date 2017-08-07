@@ -15,8 +15,8 @@ def main():
         description='Evaluate word embedding.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--npass', type=int,
-        help='Evaluate this pass number (if not set: evaluate {0} if it is '
-                        'present, or the last {0}.N in numerical order if not)'
+                        help='Evaluate this pass number (if not set: evaluate {0} if it is '
+                             'present, or the last {0}.N in numerical order if not)'
                         .format(config.embedding))
     parser.add_argument('--top-singles', type=int, default=10,
                         help='Show top single matches.')

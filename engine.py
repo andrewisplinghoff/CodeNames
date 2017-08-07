@@ -17,7 +17,6 @@ UNLIMITED = "unlimited"
 
 # noinspection PyAttributeOutsideInit
 class GameEngine(object):
-
     def __init__(self, seed=None, expert=False):
 
         # Load our word list if necessary.
@@ -189,7 +188,7 @@ class GameEngine(object):
         return (len(self.opponent_words) <= threshold_opponent  # (1)
                 and nb_clue_words + 1 < len(self.player_words)  # (2)
                 and self.unfound_words[self.player]
-                                    == set(self.player_words))  # (3)
+                == set(self.player_words))  # (3)
 
     def play_human_spymaster(self):
 
@@ -282,8 +281,10 @@ class GameEngine(object):
             self.initialize_from_words(init)
 
         while True:
-            if not self.play_turn(spymaster1, team1): break
-            if not self.play_turn(spymaster2, team2): break
+            if not self.play_turn(spymaster1, team1):
+                break
+            if not self.play_turn(spymaster2, team2):
+                break
 
 
 def say(message):
