@@ -42,7 +42,7 @@ class WordEmbedding(object):
         if word in ('theater', 'theatre', 'theaters', 'theatres',
                     'theatrical', 'theatricals'):
             return 'theater'
-        if word in ('alp', 'alps', 'apline', 'alpinist'):
+        if word in ('alp', 'alps', 'alpine', 'alpinist'):
             return 'alp'
         return self.lemmatizer.lemmatize(word).encode('ascii', 'ignore')
 
