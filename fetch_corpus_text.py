@@ -5,6 +5,7 @@ import argparse
 import gzip
 import io
 import multiprocessing
+import concurrent.futures
 import os
 import os.path
 import random
@@ -45,7 +46,7 @@ def fetch(word, min_size=int(5e6)):
         # Read all page titles.
         page_titles = [line.rstrip() for line in f_in]
         # Generate a random order of page titles.
-        order = range(len(page_titles))
+        order = list(range(len(page_titles)))
         random.shuffle(order)
         print('Fetching from {0} pages for {1}.'.format(len(page_titles), word))
 
@@ -101,9 +102,8 @@ def main():
         words = [w.strip().capitalize() for w in f]
     print('Read {0} words from {1}.'.format(len(words), config.word_list))
 
-    pool = multiprocessing.Pool(processes=args.nproc)
-    result = pool.map_async(fetch, words)
-    result.wait()
+    with concurrent.futures.ProcessPoolExecutor(max_workers=args.nproc) as executor:
+        executor.map(fetch, words)
 
 
 if __name__ == '__main__':
